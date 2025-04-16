@@ -20,9 +20,8 @@ public class Main {
                 System.out.println("번호  /  제목  /  내용");
                 System.out.println("=".repeat(30));
                 for (int i = articleList.size()-1; i>=0; i--){
-                    System.out.printf("%d       %s      %s \n", articleList.get(i).getId() + articleList.get(i).getTitle()+ articleList.get(i).getBody());
+                    System.out.printf("%d       %s      %s \n", articleList.get(i).getId(), articleList.get(i).getTitle(), articleList.get(i).getBody());
                 }
-
             }
             else if(cmd.equals("article write")){
                 System.out.print("제목 : ");
