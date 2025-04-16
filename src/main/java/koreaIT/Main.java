@@ -14,9 +14,26 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         while (true){
             System.out.print("명령어) ");
-            String cmd = sc.nextLine();
+            String cmd = sc.nextLine().trim();
 
-            if(cmd.equals("article list")){
+            if (cmd.startsWith("article detail")){
+                String [] cmdBits = cmd.split(" ");
+//                System.out.println(cmdBits[0]);
+//                System.out.println(cmdBits[1]);
+//                System.out.println(cmdBits[2]);
+
+                if (cmdBits.length > 3){
+                    System.out.println("명령어를 제대로 입력해주세요.");
+                }
+                try{
+                    int detailId = Integer.parseInt(cmdBits[2]);
+                }catch(NumberFormatException e){
+                    System.out.println("정수를 제대로 입력해주세요.");
+                }catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println("detail뒤에 정수를 추가해서 입력해주세요");
+                }
+            }
+            else if(cmd.equals("article list")){
                 System.out.println("번호  /  제목  /  내용");
                 System.out.println("=".repeat(30));
                 for (int i = articleList.size()-1; i>=0; i--){
