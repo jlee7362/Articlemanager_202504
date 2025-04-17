@@ -5,6 +5,15 @@ public class Article {
     private String title;
     private String body;
     private String regDate;
+    private String updateDate;
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
 
     public String getRegDate() {
         return regDate;
