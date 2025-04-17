@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+   static List<Article> articleList = new ArrayList<>();
+
     public static void main(String[] args) {
-        List<Article> articleList = new ArrayList<>();
 
         System.out.println("===프로그램 시작===");
+        makeTestData();
 
-        int lastId = 0;
+        int lastId = 3;
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.print("명령어) ");
@@ -154,7 +157,7 @@ public class Main {
                 lastId++;
                 int id = lastId;
 
-                Article addArticle = new Article();
+                Article addArticle = new Article(id, title, body, regDate,"");
 
                 addArticle.setId(id);
                 addArticle.setBody(body);
@@ -172,5 +175,11 @@ public class Main {
             }
         }
 
+    }
+   private static void makeTestData(){
+        System.out.println("테스트를 위한 데이터를 생성합니다.");
+        articleList.add(new Article(1,"제목1","내용1", "2025-01-11", Util.getNowDate()));
+        articleList.add(new Article(2,"제목2","내용2", "2025-02-22", Util.getNowDate()));
+        articleList.add(new Article(3,"제목3","내용3", "2025-03-31", Util.getNowDate()));
     }
 }
