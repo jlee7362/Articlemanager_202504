@@ -1,7 +1,5 @@
 package koreaIT;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,8 +15,41 @@ public class Main {
         while (true) {
             System.out.print("명령어) ");
             String cmd = sc.nextLine().trim();
+            if (cmd.startsWith("article delete")) {
+                String[] cmdBits = cmd.split(" ");
 
-            if (cmd.startsWith("article detail")) {
+                if (cmdBits.length > 3) {
+                    System.out.println("명령어를 제대로 입력해주세요.");
+                }
+                int deleteId = -1;
+                try {
+                    deleteId = Integer.parseInt(cmdBits[2]);
+                } catch (NumberFormatException e) {
+                    System.out.println("정수를 제대로 입력해주세요.");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("detail 뒤에 정수를 추가해서 입력해주세요");
+                }
+                //parsing end
+
+                //deleteId로 게시글 찾아보기
+                boolean flag = true;
+                if (!articleList.isEmpty()) {
+                    for (Article article : articleList) {
+                        if (article.getId() == deleteId) {
+                            flag = false;
+                            articleList.remove(article);
+                            System.out.printf("%d번 게시글이 삭제되었습니다.\n", deleteId);
+                            break;
+                        }
+                    }
+                    if (flag == true) {
+                        System.out.printf("%d번 게시물은 없습니다.\n", deleteId);
+                    }
+                } else {
+                    System.out.println("게시글이 없습니다.");
+                }
+
+            } else if (cmd.startsWith("article detail")) {
                 String[] cmdBits = cmd.split(" ");
 
                 if (cmdBits.length > 3) {
@@ -30,7 +61,7 @@ public class Main {
                 } catch (NumberFormatException e) {
                     System.out.println("정수를 제대로 입력해주세요.");
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("detail뒤에 정수를 추가해서 입력해주세요");
+                    System.out.println("detail 뒤에 정수를 추가해서 입력해주세요");
                 }
                 boolean flag = true;
                 if (!articleList.isEmpty()) {
@@ -41,6 +72,7 @@ public class Main {
                             System.out.println("날짜: " + article.getRegDate());
                             System.out.println("제목: " + article.getTitle());
                             System.out.println("내용: " + article.getBody());
+                            break;
                         }
 
                     }
@@ -63,11 +95,8 @@ public class Main {
                 System.out.print("내용 : ");
                 String body = sc.nextLine();
 
-                //현재 시간 불러 오고 형식 변경 후 regDate에 등록
-                LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                String formatedNow = now.format(formatter);
-                String regDate = formatedNow;
+
+                String regDate = Util.getNowDate();
 
                 lastId++;
                 int id = lastId;
