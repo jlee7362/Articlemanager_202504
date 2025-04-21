@@ -21,21 +21,43 @@ public class Main {
         while (true) {
             System.out.print("명령어) ");
             String cmd = sc.nextLine().trim();
-            if (cmd.startsWith("memeber join")) {
-                System.out.println("로그인 할 아이디: ");
-                String loginId = sc.nextLine();
-                System.out.println("비밀번호 설정: ");
-                String loginPw = sc.nextLine();
-                System.out.println("이름: ");
+
+
+            if (cmd.startsWith("member join")) {
+                String loginId;
+                while(true){
+                    System.out.print("로그인 할 아이디: ");
+                    loginId = sc.nextLine();
+                    if (!isJoinableLoginId(loginId)) {
+                        System.out.println("이미 사용 중인 아이디입니다.");
+                        continue;
+                    }
+                    break;
+                }
+                String loginPw;
+                while(true){
+                    System.out.print("비밀번호 설정: ");
+                    String loginPw1 = sc.nextLine();
+                    System.out.print("비밀번호 재확인: ");
+                    String loginPw2 = sc.nextLine();
+                    if(!loginPw1.equals(loginPw2)){
+                        System.out.println("비밀번호가 서로 다릅니다. 다시 입력해주세요.");
+                        continue;
+                    }else{
+                        loginPw = loginPw1;
+                    }
+                    break;
+                }
+                System.out.print("이름: ");
                 String name = sc.nextLine();
 
                 String regDate = Util.getNowDate();
 
-                lastMemberId++;
-
                 Member addMember = new Member(lastMemberId, regDate, "", loginId, loginPw, name);
-                memberList.add(addMember);
 
+
+                lastMemberId++;
+                memberList.add(addMember);
                 System.out.printf("%d번 회원이 등록되었습니다. %s님 환영합니다.\n", lastMemberId, name);
 
 
@@ -153,6 +175,15 @@ public class Main {
                 System.out.println("사용할 수 없는 명령어입니다.");
             }
         }
+    }
+
+    private static boolean isJoinableLoginId(String loginId){
+        for(Member member : memberList){
+            if(member.getLoginId().equals(loginId)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
