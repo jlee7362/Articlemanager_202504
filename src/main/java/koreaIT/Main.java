@@ -168,9 +168,10 @@ public class Main {
                 Article addArticle = new Article(id, title, body, regDate, "");
 
                 articleList.add(addArticle);
-                System.out.printf("%d번 게시물은 없습니다.\n", id);
+
             } else if (cmd.equals("exit")) {
                 System.out.println("===프로그램 종료===");
+                break;
             } else {
                 System.out.println("사용할 수 없는 명령어입니다.");
             }
