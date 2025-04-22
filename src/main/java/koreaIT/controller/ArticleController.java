@@ -3,18 +3,43 @@ package koreaIT.controller;
 import koreaIT.dto.Article;
 import koreaIT.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArticleController {
+public class ArticleController extends Controller{
 
     private Scanner sc;
-    List<Article> articleList;
-    int lastArticleId = 3;
+    private List<Article> articleList;
+    private int lastArticleId = 3;
 
-    public ArticleController(Scanner sc, List<Article> articleList) {
+    public ArticleController(Scanner sc) {
         this.sc = sc;
-        this.articleList = articleList;
+        this.articleList = new ArrayList<>();
+    }
+
+    @Override
+    public void doAction(String methodName, String cmd) {
+        switch(methodName){
+            case "modify":
+                doModify(cmd);
+                break;
+            case "delete":
+                doDelete(cmd);
+                break;
+            case "detail":
+                showDetail(cmd);
+                break;
+            case "list":
+                showList();
+                break;
+            case "write":
+                doWrite();
+                break;
+            default:
+                System.out.println("명령어를 제대로 입력해 주세요");
+        }
+
     }
 
     public void doModify(String cmd) {
