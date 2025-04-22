@@ -1,4 +1,4 @@
-package koreaIT;
+package koreaIT.dto;
 
 public class Member {
     private int id;
