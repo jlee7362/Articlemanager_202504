@@ -1,5 +1,6 @@
 package koreaIT.controller;
 
+import koreaIT.dto.Article;
 import koreaIT.dto.Member;
 import koreaIT.util.Util;
 
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class Membercontroller extends Controller{
     private Scanner sc;
     private List<Member> memberList;
-    private int lastMemberId = 0;
+    private int lastMemberId = 3;
 
     public Membercontroller(Scanner sc){
         this.sc = sc;
@@ -23,8 +24,17 @@ public class Membercontroller extends Controller{
             case "join":
                 doJoin();
                 break;
+            case "list":
+                showMember();
+                break;
             default:
                 System.out.println("명령어를 확인해주세요.4");
+        }
+    }
+
+    public void showMember(){
+        for(Member member: memberList){
+            System.out.println(member.toString());
         }
     }
 
@@ -77,6 +87,13 @@ public class Membercontroller extends Controller{
             }
         }
         return true;
+    }
+
+    public void makeMemberTestData() {
+        System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
+        memberList.add(new Member(1, "2025-01-11", Util.getNowDate(),"admin","admin", "관리자"));
+        memberList.add(new Member(2, "2025-01-11", Util.getNowDate(),"test1","test1", "회원1"));
+        memberList.add(new Member(3, "2025-01-11", Util.getNowDate(),"test2","test2", "회원2"));
     }
 
 }

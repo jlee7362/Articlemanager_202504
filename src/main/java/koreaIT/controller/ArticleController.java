@@ -174,7 +174,7 @@ public class ArticleController extends Controller{
         return null;
     }
 
-    public void makeTestData() {
+    public void makeArticleTestData() {
         System.out.println("테스트를 위한 데이터를 생성합니다.");
         articleList.add(new Article(1, "제목1", "내용1", "2025-01-11", Util.getNowDate()));
         articleList.add(new Article(2, "제목2", "내용2", "2025-02-22", Util.getNowDate()));
