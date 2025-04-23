@@ -39,24 +39,26 @@ public class Membercontroller extends Controller{
             System.out.println("이미 로그인 상태입니다.");
             return;
         }
-        
+
         System.out.println("== 로그인 ==");
         System.out.print("로그인 아이디 : ");
         String loginId = sc.nextLine();
         System.out.print("로그인 비밀번호 : ");
         String loginPw = sc.nextLine();
 
-        Member member = getMemberByLoginId(loginId,loginPw);
+        Member member = getMemberByLoginId(loginId);
 
         if(member == null){
             System.out.println("일치하는 회원이 없습니다.");
             return;
         }
-        if(member.getLoginId().equals(loginId) && member.getLoginPw().equals(loginPw)){
+        if(member.getLoginPw().equals(loginPw)){
             System.out.printf("로그인 성공. %s님 환영합니다.\n", member.getName());
             loginedMember = member;
+            return;
         }else{
-            System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
+            System.out.println("비밀번호가 틀렸습니다.");
+            return;
         }
     }
 
@@ -110,9 +112,9 @@ public class Membercontroller extends Controller{
 
 
     }
-    private Member getMemberByLoginId(String loginId, String loginPw) {
+    private Member getMemberByLoginId(String loginId) {
         for(Member member : memberList){
-            if(member.getLoginId().equals(loginId) && member.getLoginPw().equals(loginPw)){
+            if(member.getLoginId().equals(loginId)){
                 return member;
             }
         }
