@@ -1,6 +1,5 @@
 package koreaIT.controller;
 
-import koreaIT.dto.Article;
 import koreaIT.dto.Member;
 import koreaIT.util.Util;
 
@@ -12,6 +11,7 @@ public class Membercontroller extends Controller{
     private Scanner sc;
     private List<Member> memberList;
     private int lastMemberId = 3;
+    private Member loginedMember = null;
 
     public Membercontroller(Scanner sc){
         this.sc = sc;
@@ -21,6 +21,9 @@ public class Membercontroller extends Controller{
     @Override
     public void doAction(String methodName, String cmd) {
         switch (methodName){
+            case "login":
+                doLogin();
+                break;
             case "join":
                 doJoin();
                 break;
@@ -31,6 +34,34 @@ public class Membercontroller extends Controller{
                 System.out.println("명령어를 확인해주세요.4");
         }
     }
+    public void doLogin(){
+        if(loginedMember!=null){
+            System.out.println("이미 로그인 상태입니다.");
+            return;
+        }
+        
+        System.out.println("== 로그인 ==");
+        System.out.print("로그인 아이디 : ");
+        String loginId = sc.nextLine();
+        System.out.print("로그인 비밀번호 : ");
+        String loginPw = sc.nextLine();
+
+        Member member = getMemberByLoginId(loginId,loginPw);
+
+        if(member == null){
+            System.out.println("일치하는 회원이 없습니다.");
+            return;
+        }
+        if(member.getLoginId().equals(loginId) && member.getLoginPw().equals(loginPw)){
+            System.out.printf("로그인 성공. %s님 환영합니다.\n", member.getName());
+            loginedMember = member;
+        }else{
+            System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
+        }
+    }
+
+
+
 
     public void showMember(){
         for(Member member: memberList){
@@ -79,7 +110,14 @@ public class Membercontroller extends Controller{
 
 
     }
-
+    private Member getMemberByLoginId(String loginId, String loginPw) {
+        for(Member member : memberList){
+            if(member.getLoginId().equals(loginId) && member.getLoginPw().equals(loginPw)){
+                return member;
+            }
+        }
+        return null;
+    }
     private boolean isJoinableLoginId(String loginId) {
         for (Member member : memberList) {
             if (member.getLoginId().equals(loginId)) {
