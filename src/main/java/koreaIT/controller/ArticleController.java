@@ -22,9 +22,17 @@ public class ArticleController extends Controller{
     public void doAction(String methodName, String cmd) {
         switch(methodName){
             case "modify":
+                if(!isLogined()){
+                    System.out.println("로그인 후 이용가능합니다.");
+                    return;
+                }
                 doModify(cmd);
                 break;
             case "delete":
+                if(!isLogined()){
+                    System.out.println("로그인 후 이용가능합니다.");
+                    return;
+                }
                 doDelete(cmd);
                 break;
             case "detail":
@@ -34,6 +42,10 @@ public class ArticleController extends Controller{
                 showList();
                 break;
             case "write":
+                if(!isLogined()){
+                    System.out.println("로그인 후 이용가능합니다.");
+                    break;
+                }
                 doWrite();
                 break;
             default:
@@ -42,7 +54,7 @@ public class ArticleController extends Controller{
 
     }
 
-    public void doModify(String cmd) {
+    private void doModify(String cmd) {
 
         //parsing starts
         String[] cmdBits = cmd.split(" ");
@@ -82,7 +94,7 @@ public class ArticleController extends Controller{
         }
     }
 
-    public void doDelete(String cmd) {
+    private void doDelete(String cmd) {
 
         // parsing start
         String[] cmdBits = cmd.split(" ");
@@ -108,7 +120,7 @@ public class ArticleController extends Controller{
 
     }
 
-    public void showDetail(String cmd) {
+    private void showDetail(String cmd) {
 
         // parsing start
         String[] cmdBits = cmd.split(" ");
@@ -138,7 +150,7 @@ public class ArticleController extends Controller{
         }
     }
 
-    public void showList() {
+    private void showList() {
 
         System.out.println("번호  /  제목  /  내용");
         System.out.println("=".repeat(30));
@@ -147,7 +159,10 @@ public class ArticleController extends Controller{
         }
     }
 
-    public void doWrite() {
+    private void doWrite() {
+
+        //로그인 상태 체크
+
 
         System.out.print("제목 : ");
         String title = sc.nextLine();
@@ -165,7 +180,7 @@ public class ArticleController extends Controller{
 
     }
 
-    public Article getArticleById(int id) {
+    private Article getArticleById(int id) {
         for (Article article : articleList) {
             if (article.getId() == id) {
                 return article;
