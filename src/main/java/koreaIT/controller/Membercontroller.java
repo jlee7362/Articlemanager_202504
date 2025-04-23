@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Membercontroller extends Controller{
+public class Membercontroller extends Controller {
     private Scanner sc;
     private List<Member> memberList;
     private int lastMemberId = 3;
     private Member loginedMember = null;
 
-    public Membercontroller(Scanner sc){
+    public Membercontroller(Scanner sc) {
         this.sc = sc;
         this.memberList = new ArrayList<>();
     }
 
     @Override
     public void doAction(String methodName, String cmd) {
-        switch (methodName){
+        switch (methodName) {
             case "login":
                 doLogin();
                 break;
@@ -34,39 +34,37 @@ public class Membercontroller extends Controller{
                 System.out.println("명령어를 확인해주세요.4");
         }
     }
-    public void doLogin(){
-        if(loginedMember!=null){
+
+    public void doLogin() {
+        if (loginedMember != null) {
             System.out.println("이미 로그인 상태입니다.");
             return;
         }
-
         System.out.println("== 로그인 ==");
-        System.out.print("로그인 아이디 : ");
-        String loginId = sc.nextLine();
-        System.out.print("로그인 비밀번호 : ");
-        String loginPw = sc.nextLine();
+        while(true){
+            System.out.print("로그인 아이디 : ");
+            String loginId = sc.nextLine();
+            Member member = getMemberByLoginId(loginId);
+            if (member == null) {
+                System.out.println("일치하는 회원이 없습니다.");
+                continue;
+            }
+            System.out.print("로그인 비밀번호 : ");
+            String loginPw = sc.nextLine();
 
-        Member member = getMemberByLoginId(loginId);
-
-        if(member == null){
-            System.out.println("일치하는 회원이 없습니다.");
-            return;
-        }
-        if(member.getLoginPw().equals(loginPw)){
-            System.out.printf("로그인 성공. %s님 환영합니다.\n", member.getName());
-            loginedMember = member;
-            return;
-        }else{
-            System.out.println("비밀번호가 틀렸습니다.");
-            return;
+            if (member.getLoginPw().equals(loginPw)) {
+                System.out.printf("로그인 성공. %s님 환영합니다.\n", member.getName());
+                loginedMember = member;
+                return;
+            } else {
+                System.out.println("비밀번호가 틀렸습니다.");
+            }
         }
     }
 
 
-
-
-    public void showMember(){
-        for(Member member: memberList){
+    public void showMember() {
+        for (Member member : memberList) {
             System.out.println(member.toString());
         }
     }
@@ -112,14 +110,16 @@ public class Membercontroller extends Controller{
 
 
     }
+
     private Member getMemberByLoginId(String loginId) {
-        for(Member member : memberList){
-            if(member.getLoginId().equals(loginId)){
+        for (Member member : memberList) {
+            if (member.getLoginId().equals(loginId)) {
                 return member;
             }
         }
         return null;
     }
+
     private boolean isJoinableLoginId(String loginId) {
         for (Member member : memberList) {
             if (member.getLoginId().equals(loginId)) {
@@ -131,9 +131,9 @@ public class Membercontroller extends Controller{
 
     public void makeMemberTestData() {
         System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
-        memberList.add(new Member(1, "2025-01-11", Util.getNowDate(),"admin","admin", "관리자"));
-        memberList.add(new Member(2, "2025-01-11", Util.getNowDate(),"test1","test1", "회원1"));
-        memberList.add(new Member(3, "2025-01-11", Util.getNowDate(),"test2","test2", "회원2"));
+        memberList.add(new Member(1, "2025-01-11", Util.getNowDate(), "admin", "admin", "관리자"));
+        memberList.add(new Member(2, "2025-01-11", Util.getNowDate(), "test1", "test1", "회원1"));
+        memberList.add(new Member(3, "2025-01-11", Util.getNowDate(), "test2", "test2", "회원2"));
     }
 
 }
