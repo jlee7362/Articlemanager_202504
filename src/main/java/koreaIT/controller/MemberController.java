@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Membercontroller extends Controller {
+public class MemberController extends Controller {
+
     private Scanner sc;
     private List<Member> memberList;
     private int lastMemberId = 3;
 
-
-    public Membercontroller(Scanner sc) {
+    public MemberController(Scanner sc) {
         this.sc = sc;
         this.memberList = new ArrayList<>();
     }
 
     @Override
     public void doAction(String methodName, String cmd) {
-        switch (methodName) {
+        switch(methodName) {
             case "logout":
                 if(!isLogined()){
                     System.out.println("이미 로그아웃 상태입니다.");

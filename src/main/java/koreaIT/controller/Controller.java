@@ -4,12 +4,11 @@ import koreaIT.dto.Member;
 
 public abstract class Controller {
 
-    public abstract void doAction(String methodName, String cmd);
+    static Member loginedMember = null;
 
-    public Member loginedMember = null;
-    public boolean isLogined(){
+    protected boolean isLogined(){
         return loginedMember != null;
     }
 
-
+    public abstract void doAction(String methodName, String cmd);
 }

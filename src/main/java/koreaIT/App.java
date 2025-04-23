@@ -2,7 +2,7 @@ package koreaIT;
 
 import koreaIT.controller.ArticleController;
 import koreaIT.controller.Controller;
-import koreaIT.controller.Membercontroller;
+import koreaIT.controller.MemberController;
 
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ public class App {
 
         Controller controller;
 
-        Membercontroller memberController = new Membercontroller(sc);
+        MemberController memberController = new MemberController(sc);
         ArticleController articleController = new ArticleController(sc);
 
         articleController.makeArticleTestData();

@@ -29,7 +29,7 @@ public class ArticleController extends Controller{
                 doModify(cmd);
                 break;
             case "delete":
-                if(!isLogined()){
+                if(!isLogined()){ //항상 true
                     System.out.println("로그인 후 이용가능합니다.");
                     return;
                 }
@@ -42,12 +42,13 @@ public class ArticleController extends Controller{
                 showList();
                 break;
             case "write":
-                if(!isLogined()){
+                if(!isLogined()){ //항상 false
                     System.out.println("로그인 후 이용가능합니다.");
+                    return;
+                }else{
+                    doWrite();
                     break;
                 }
-                doWrite();
-                break;
             default:
                 System.out.println("명령어를 제대로 입력해 주세요");
         }
@@ -160,8 +161,6 @@ public class ArticleController extends Controller{
     }
 
     private void doWrite() {
-
-        //로그인 상태 체크
 
 
         System.out.print("제목 : ");
