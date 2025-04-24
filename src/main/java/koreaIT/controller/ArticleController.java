@@ -64,24 +64,25 @@ public class ArticleController extends Controller {
         Article foundArticle = getArticleById(modifyId);
 
         if (foundArticle != null) {
-            if (foundArticle.getMemberId() == loginedMember.getId()) {
-                System.out.println("기존 제목: " + foundArticle.getTitle());
-                System.out.println("기존 내용: " + foundArticle.getBody());
-                System.out.print("새 제목 : ");
-                String newtitle = sc.nextLine().trim();
-                System.out.print("새 내용 : ");
-                String newbody = sc.nextLine().trim();
-
-                String updateDate = Util.getNowDate();
-
-                foundArticle.setTitle(newtitle);
-                foundArticle.setBody(newbody);
-                foundArticle.setUpdateDate(updateDate);
-
-                System.out.printf("%d번 게시글이 수정되었습니다.\n", modifyId);
-            } else {
+            if (foundArticle.getMemberId() != loginedMember.getId()) {
                 System.out.printf("%d번 게시글을 수정할 권한이 없습니다.\n", modifyId);
+                return;
             }
+            System.out.println("기존 제목: " + foundArticle.getTitle());
+            System.out.println("기존 내용: " + foundArticle.getBody());
+            System.out.print("새 제목 : ");
+            String newtitle = sc.nextLine().trim();
+            System.out.print("새 내용 : ");
+            String newbody = sc.nextLine().trim();
+
+            String updateDate = Util.getNowDate();
+
+            foundArticle.setTitle(newtitle);
+            foundArticle.setBody(newbody);
+            foundArticle.setUpdateDate(updateDate);
+
+            System.out.printf("%d번 게시글이 수정되었습니다.\n", modifyId);
+
         } else {
             System.out.printf("%d번 게시물은 없습니다.\n", modifyId);
         }
@@ -105,12 +106,12 @@ public class ArticleController extends Controller {
         // parsing end
         Article foundArticle = getArticleById(deleteId);
         if (foundArticle != null) {
-            if (foundArticle.getMemberId() == loginedMember.getId()) {
-                articleList.remove(foundArticle);
-                System.out.printf("%d번 게시글이 삭제되었습니다.\n", deleteId);
-            } else {
+            if (foundArticle.getMemberId() != loginedMember.getId()) {
                 System.out.printf("%d번 게시글을 삭제할 권한이 없습니다.\n", deleteId);
+                return;
             }
+            articleList.remove(foundArticle);
+            System.out.printf("%d번 게시글이 삭제되었습니다.\n", deleteId);
         } else {
             System.out.printf("%d번 게시글이 없습니다.\n", deleteId);
         }

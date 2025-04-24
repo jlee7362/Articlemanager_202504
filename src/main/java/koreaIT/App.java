@@ -71,9 +71,7 @@ public class App {
                         continue;
                     }
                     break;
-
             }
-
             controller.doAction(methodName, cmd);
         }
     }
