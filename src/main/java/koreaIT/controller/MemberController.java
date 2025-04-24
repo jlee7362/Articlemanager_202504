@@ -1,6 +1,8 @@
 package koreaIT.controller;
 
+import koreaIT.dto.Article;
 import koreaIT.dto.Member;
+import koreaIT.util.Container;
 import koreaIT.util.Util;
 
 import java.util.ArrayList;
@@ -11,11 +13,13 @@ public class MemberController extends Controller {
 
     private Scanner sc;
     private List<Member> memberList;
+
     private int lastMemberId = 3;
+
 
     public MemberController(Scanner sc) {
         this.sc = sc;
-        this.memberList = new ArrayList<>();
+        this.memberList = Container.memberDao.memberList;
     }
 
     @Override
