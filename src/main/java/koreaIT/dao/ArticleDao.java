@@ -7,9 +7,13 @@ import java.util.List;
 
 public class ArticleDao {
 
-    public List<Article> articleList;
+    private List<Article> articleList;
 
     public ArticleDao() {
         this.articleList = new ArrayList<>();
+    }
+
+    public List<Article> getArticleList() {
+        return articleList;
     }
 }

@@ -1,11 +1,10 @@
 package koreaIT.controller;
 
-import koreaIT.dto.Article;
 import koreaIT.dto.Member;
+import koreaIT.service.MemberService;
 import koreaIT.util.Container;
 import koreaIT.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,10 +15,12 @@ public class MemberController extends Controller {
 
     private int lastMemberId = 3;
 
+    MemberService memberService = new MemberService();
+
 
     public MemberController(Scanner sc) {
         this.sc = sc;
-        this.memberList = Container.memberDao.memberList;
+        this.memberList = memberService.getMembers();
     }
 
     @Override
