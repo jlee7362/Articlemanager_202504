@@ -6,13 +6,23 @@ public class Article {
     private String body;
     private String regDate;
     private String updateDate;
+    private int memberId;
 
-    public Article(int id, String title, String body, String regDate, String updateDate) {
+    public Article(int id, String title, String body, String regDate, String updateDate, int memberId) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.regDate = regDate;
         this.updateDate = updateDate;
+        this.memberId = memberId;
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
     }
 
     public String getUpdateDate() {

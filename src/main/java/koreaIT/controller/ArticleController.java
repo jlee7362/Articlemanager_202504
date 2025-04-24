@@ -1,6 +1,7 @@
 package koreaIT.controller;
 
 import koreaIT.dto.Article;
+import koreaIT.dto.Member;
 import koreaIT.util.Util;
 
 import java.util.ArrayList;
@@ -144,6 +145,7 @@ public class ArticleController extends Controller{
             if (foundArticle.getUpdateDate() != null && !foundArticle.getUpdateDate().isEmpty()) {  //String 널체크 문법 체크하기
                 System.out.println("수정날짜: " + foundArticle.getUpdateDate());
             }
+            System.out.println("작성자: "+foundArticle.getMemberId());
             System.out.println("제목: " + foundArticle.getTitle());
             System.out.println("내용: " + foundArticle.getBody());
         } else {
@@ -153,15 +155,14 @@ public class ArticleController extends Controller{
 
     private void showList() {
 
-        System.out.println("번호  /  제목  /  내용");
+        System.out.println("번호   /    작성날짜   /    작성자    /    제목");
         System.out.println("=".repeat(30));
         for (int i = articleList.size() - 1; i >= 0; i--) {
-            System.out.printf("%d       %s      %s \n", articleList.get(i).getId(), articleList.get(i).getTitle(), articleList.get(i).getBody());
+            System.out.printf("%d        %s          %s           %s \n", articleList.get(i).getId(), articleList.get(i).getRegDate(), articleList.get(i).getMemberId(), articleList.get(i).getTitle());
         }
     }
 
     private void doWrite() {
-
 
         System.out.print("제목 : ");
         String title = sc.nextLine();
@@ -172,7 +173,8 @@ public class ArticleController extends Controller{
         lastArticleId++;
         int id = lastArticleId;
 
-        Article addArticle = new Article(id, title, body, regDate, "");
+
+        Article addArticle = new Article(id, title, body, regDate, "", loginedMember.getId());
 
         articleList.add(addArticle);
         System.out.printf("%d번 게시물이 생성되었습니다.\n", lastArticleId);
@@ -190,9 +192,9 @@ public class ArticleController extends Controller{
 
     public void makeArticleTestData() {
         System.out.println("테스트를 위한 데이터를 생성합니다.");
-        articleList.add(new Article(1, "제목1", "내용1", "2025-01-11", Util.getNowDate()));
-        articleList.add(new Article(2, "제목2", "내용2", "2025-02-22", Util.getNowDate()));
-        articleList.add(new Article(3, "제목3", "내용3", "2025-03-31", Util.getNowDate()));
+        articleList.add(new Article(1, "제목1","내용1", "2025-01-11", Util.getNowDate(),1));
+        articleList.add(new Article(2, "제목2", "내용2", "2025-02-22", Util.getNowDate(),1));
+        articleList.add(new Article(3, "제목3", "내용3", "2025-03-31", Util.getNowDate(),2));
     }
 
 }
