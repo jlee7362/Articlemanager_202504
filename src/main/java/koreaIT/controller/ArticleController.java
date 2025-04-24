@@ -77,20 +77,24 @@ public class ArticleController extends Controller{
         Article foundArticle = getArticleById(modifyId);
 
         if (foundArticle != null) {
-            System.out.println("기존 제목: " + foundArticle.getTitle());
-            System.out.println("기존 내용: " + foundArticle.getBody());
-            System.out.print("새 제목 : ");
-            String newtitle = sc.nextLine().trim();
-            System.out.print("새 내용 : ");
-            String newbody = sc.nextLine().trim();
+            if(foundArticle.getMemberId() == loginedMember.getId()){
+                System.out.println("기존 제목: " + foundArticle.getTitle());
+                System.out.println("기존 내용: " + foundArticle.getBody());
+                System.out.print("새 제목 : ");
+                String newtitle = sc.nextLine().trim();
+                System.out.print("새 내용 : ");
+                String newbody = sc.nextLine().trim();
 
-            String updateDate = Util.getNowDate();
+                String updateDate = Util.getNowDate();
 
-            foundArticle.setTitle(newtitle);
-            foundArticle.setBody(newbody);
-            foundArticle.setUpdateDate(updateDate);
+                foundArticle.setTitle(newtitle);
+                foundArticle.setBody(newbody);
+                foundArticle.setUpdateDate(updateDate);
 
-            System.out.printf("%d번 게시글이 수정되었습니다.\n", modifyId);
+                System.out.printf("%d번 게시글이 수정되었습니다.\n", modifyId);
+            }else{
+                System.out.printf("%d번 게시글을 수정할 권한이 없습니다.\n", modifyId);
+            }
         } else {
             System.out.printf("%d번 게시물은 없습니다.\n", modifyId);
         }
@@ -114,10 +118,14 @@ public class ArticleController extends Controller{
         // parsing end
         Article foundArticle = getArticleById(deleteId);
         if (foundArticle != null) {
-            articleList.remove(foundArticle);
-            System.out.printf("%d번 게시글이 삭제되었습니다.\n", deleteId);
+            if(foundArticle.getMemberId()== loginedMember.getId()){
+                articleList.remove(foundArticle);
+                System.out.printf("%d번 게시글이 삭제되었습니다.\n", deleteId);
+            }else{
+                System.out.printf("%d번 게시글을 삭제할 권한이 없습니다.\n", deleteId);
+            }
         } else {
-            System.out.printf("%d번 게시물은 없습니다.\n", deleteId);
+            System.out.printf("%d번 게시글이 없습니다.\n", deleteId);
         }
 
     }
@@ -155,10 +163,18 @@ public class ArticleController extends Controller{
 
     private void showList() {
 
-        System.out.println("번호   /    작성날짜   /    작성자    /    제목");
+        System.out.println("번호   /    작성날짜           /    작성자    /    제목");
         System.out.println("=".repeat(30));
         for (int i = articleList.size() - 1; i >= 0; i--) {
-            System.out.printf("%d        %s          %s           %s \n", articleList.get(i).getId(), articleList.get(i).getRegDate(), articleList.get(i).getMemberId(), articleList.get(i).getTitle());
+
+            if(Util.getNowDate().split(" ")[0].equals(articleList.get(i).getRegDate().split(" ")[0])){
+                System.out.printf("%d        %s          %s           %s \n", articleList.get(i).getId(), articleList.get(i).getRegDate().split(" ")[1], articleList.get(i).getMemberId(), articleList.get(i).getTitle());
+            }else{
+                System.out.printf("%d        %s          %s           %s \n", articleList.get(i).getId(), articleList.get(i).getRegDate().split(" ")[0], articleList.get(i).getMemberId(), articleList.get(i).getTitle());
+            }
+
+
+
         }
     }
 
@@ -172,7 +188,6 @@ public class ArticleController extends Controller{
 
         lastArticleId++;
         int id = lastArticleId;
-
 
         Article addArticle = new Article(id, title, body, regDate, "", loginedMember.getId());
 
@@ -192,9 +207,9 @@ public class ArticleController extends Controller{
 
     public void makeArticleTestData() {
         System.out.println("테스트를 위한 데이터를 생성합니다.");
-        articleList.add(new Article(1, "제목1","내용1", "2025-01-11", Util.getNowDate(),1));
-        articleList.add(new Article(2, "제목2", "내용2", "2025-02-22", Util.getNowDate(),1));
-        articleList.add(new Article(3, "제목3", "내용3", "2025-03-31", Util.getNowDate(),2));
+        articleList.add(new Article(1, "제목1","내용1", "2025-01-11 12:12:12", Util.getNowDate(),1));
+        articleList.add(new Article(2, "제목2", "내용2", "2025-02-22 12:12:12", Util.getNowDate(),1));
+        articleList.add(new Article(3, "제목3", "내용3", "2025-03-31 12:12:12", Util.getNowDate(),2));
     }
 
 }
