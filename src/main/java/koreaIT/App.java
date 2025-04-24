@@ -49,6 +49,31 @@ public class App {
                 continue;
             }
 
+            String loginCheck = controllerName +"/"+ methodName;
+
+            switch (loginCheck){
+                case "article/write":
+                case "article/modify":
+                case "article/delete":
+                case "member/logout":
+                    if(!controller.isLogined()){
+                        System.out.println("로그인을 먼저 해 주세요.");
+                        continue;
+                    }
+                    break;
+            }
+            //로그아웃이 필요한 메서드
+            switch (loginCheck){
+                case "member/login":
+                case "member/join":
+                    if(controller.isLogined()){
+                        System.out.println("로그아웃을 먼저 해 주세요.");
+                        continue;
+                    }
+                    break;
+
+            }
+
             controller.doAction(methodName, cmd);
         }
     }

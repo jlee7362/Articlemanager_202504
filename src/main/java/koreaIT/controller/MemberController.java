@@ -22,17 +22,9 @@ public class MemberController extends Controller {
     public void doAction(String methodName, String cmd) {
         switch(methodName) {
             case "logout":
-                if(!isLogined()){
-                    System.out.println("이미 로그아웃 상태입니다.");
-                    return;
-                }
                 doLogout();
                 break;
             case "login":
-                if (isLogined()) {
-                    System.out.println("이미 로그인 상태입니다.");
-                    return;
-                }
                 doLogin();
                 break;
             case "join":
