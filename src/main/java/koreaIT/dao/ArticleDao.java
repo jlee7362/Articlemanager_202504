@@ -16,4 +16,22 @@ public class ArticleDao {
     public List<Article> getArticleList() {
         return articleList;
     }
+
+    public void add(Article addArticle) {
+        articleList.add(addArticle);
+    }
+
+   public Article getArticleById(int id) {
+        for (Article article : articleList) {
+            if (article.getId() == id) {
+                return article;
+            }
+        }
+        return null;
+    }
+
+    public void remove(Article foundArticle) {
+        articleList.remove(foundArticle);
+    }
+
 }

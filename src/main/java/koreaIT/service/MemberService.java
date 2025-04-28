@@ -2,7 +2,7 @@ package koreaIT.service;
 
 import koreaIT.dao.MemberDao;
 import koreaIT.dto.Member;
-import koreaIT.util.Container;
+import koreaIT.Container;
 
 import java.util.List;
 

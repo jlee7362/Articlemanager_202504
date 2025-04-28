@@ -1,4 +1,4 @@
-package koreaIT.util;
+package koreaIT;
 
 import koreaIT.dao.ArticleDao;
 import koreaIT.dao.MemberDao;
